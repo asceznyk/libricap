@@ -15,5 +15,5 @@ train_loader = DataLoader(dataset=train_dataset,
                           shuffle=True,
                           collate_fn=lambda x: data_preprocess(x, 'train'))
 
-specs, _, _, _ = next(iter(train_loader))
-print(specs.size())
+specs, labels, _, _ = next(iter(train_loader))
+print(specs.size(), labels.size())
