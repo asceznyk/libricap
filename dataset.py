@@ -70,7 +70,7 @@ train_audio_transforms = nn.Sequential(
 
 valid_audio_transforms = torchaudio.transforms.MelSpectrogram()
 
-def data_processing(data, data_type="train"):
+def data_preprocess(data, data_type="train"):
     spectrograms = []
     labels = []
     input_lengths = []
