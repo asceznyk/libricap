@@ -5,6 +5,8 @@ from torch.utils.data import Dataset, DataLoader
 
 import torchaudio
 
+from dataset import *
+
 train_dataset = torchaudio.datasets.LIBRISPEECH("./", url="train-clean-100", download=True)
 test_dataset = torchaudio.datasets.LIBRISPEECH("./", url="test-clean", download=True)
 
