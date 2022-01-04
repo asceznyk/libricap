@@ -84,6 +84,7 @@ def data_preprocess(data, data_type="train"):
             spec = valid_audio_transforms(waveform).squeeze(0).transpose(0, 1)
         else:
             raise Exception('data_type should be train or valid')
+
         spectrograms.append(spec)
         label = torch.Tensor(text_transform.text_to_int(utterance.lower()))
         labels.append(label)
