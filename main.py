@@ -30,11 +30,10 @@ def main(args):
     test_loader = DataLoader(dataset=test_dataset, 
                              batch_size=args.batch_size,
                              shuffle=False,
-                             collate_fn=lambda x: data_preprocess(x, 'valid')
+                             collate_fn=lambda x: data_preprocess(x, 'valid'),
                              **kwargs)
 
     print(next(iter(train_loader)), next(iter(test_loader)))
-
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
