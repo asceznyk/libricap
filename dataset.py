@@ -70,6 +70,8 @@ train_audio_transforms = nn.Sequential(
 
 valid_audio_transforms = torchaudio.transforms.MelSpectrogram()
 
+text_transform = TextTransform()
+
 def data_preprocess(data, data_type="train"):
     spectrograms = []
     labels = []
@@ -93,7 +95,6 @@ def data_preprocess(data, data_type="train"):
 
     return spectrograms, labels, input_lengths, label_lengths
 
-
 def greedy_decoder(output, labels, label_lengths, blank_label=28, collapse_repeated=True):
     arg_maxes = torch.argmax(output, dim=2)
     decodes = []
@@ -109,4 +110,3 @@ def greedy_decoder(output, labels, label_lengths, blank_label=28, collapse_repea
         decodes.append(text_transform.int_to_text(decode))
     return decodes, targets
 
-text_transform = TextTransform()
