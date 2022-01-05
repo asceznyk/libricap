@@ -9,8 +9,8 @@ class FeatureLayerNorm(nn.Module):
         self.layer_norm = nn.LayerNorm(n_feats)
 
     def forward(self, x):
-        x = x.transpose(2,3).contiguous() ## x.shape (batch, channel, time, feature)
+        x = x.transpose(2,3) #.contiguous() ## x.shape (batch, channel, time, feature)
         x = self.layer_norm(x)
-        return x.transpose(2,3).contiguous() ## x.shape (batch, channel, feature, time)
+        return x.transpose(2,3) #.contiguous() ## x.shape (batch, channel, feature, time)
 
 
