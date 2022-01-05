@@ -8,10 +8,9 @@ from torch.utils.data import Dataset, DataLoader
 import torchaudio
 
 from dataset import *
+from model import *
 
 def main(args):
-    print(args)
-
     torch.manual_seed(7)
     use_cuda = torch.cuda.is_available()
     device = torch.device("cuda" if use_cuda else "cpu")

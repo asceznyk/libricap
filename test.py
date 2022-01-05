@@ -5,15 +5,14 @@ from torch.utils.data import Dataset, DataLoader
 
 import torchaudio
 
-from dataset import *
+from model import *
 
-train_dataset = torchaudio.datasets.LIBRISPEECH("/kaggle/working", url="train-clean-100", download=True)
-test_dataset = torchaudio.datasets.LIBRISPEECH("/kaggle/working", url="test-clean", download=True)
+torch.manual_seed(7)
 
-train_loader = DataLoader(dataset=train_dataset, 
-                          batch_size=8,
-                          shuffle=True,
-                          collate_fn=lambda x: data_preprocess(x, 'train'))
+x = torch.randn(8, 1, 128, 1024)
+fln = FeatureLayerNorm(128)
+y = fln(x)
 
-specs, labels, _, _ = next(iter(train_loader))
-print(specs.size(), labels.size())
+print(x)
+print(y)
+
