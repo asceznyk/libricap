@@ -15,7 +15,7 @@ rescnn = ResCNN(32, 32, 3, 1, 0.5, 128)
 y = cnn(x)
 y = rescnn(y)
 
-print(x)
-print(y)
+print(x, x.size())
+print(y, y.size())
 
 

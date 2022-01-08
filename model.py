@@ -10,9 +10,9 @@ class FeatureLayerNorm(nn.Module):
         self.layer_norm = nn.LayerNorm(n_feats)
 
     def forward(self, x):
-        x = x.transpose(2,3) #.contiguous() ## x.shape (batch, channel, time, feature)
+        x = x.transpose(2,3).contiguous() ## x.shape (batch, channel, time, feature)
         x = self.layer_norm(x)
-        return x.transpose(2,3) #.contiguous() ## x.shape (batch, channel, feature, time)
+        return x.transpose(2,3).contiguous() ## x.shape (batch, channel, feature, time)
 
 class ResCNN(nn.Module):
     def __init__(self, in_c, out_c, kernel, stride, dropout, n_feats):
@@ -26,19 +26,12 @@ class ResCNN(nn.Module):
 
     def forward(self, x):
         res = x
-
-        print(res)
         x = self.layer_norm1(x) 
-        print(res)
-
         x = self.dropout1(F.gelu(x))
         x = self.cnn1(x)
         x = self.layer_norm2(x)
         x = self.dropout2(F.gelu(x))
         x = self.cnn2(x)
-
-        print(x.size(), res.size())
-
         return x + res
 
 
