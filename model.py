@@ -37,6 +37,8 @@ class ResCNN(nn.Module):
         x = self.dropout2(F.gelu(x))
         x = self.cnn2(x)
 
+        print(x.size(), res.size())
+
         return x + res
 
 
