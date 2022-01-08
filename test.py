@@ -11,7 +11,7 @@ torch.manual_seed(7)
 
 x = torch.randn(8, 1, 128, 1024)
 fln = FeatureLayerNorm(128)
-y = fln(x)
+y = fln(x) 
 
 print(x)
 print(y)
