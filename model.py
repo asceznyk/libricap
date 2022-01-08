@@ -14,7 +14,7 @@ class FeatureLayerNorm(nn.Module):
         return x.transpose(2,3) #.contiguous() ## x.shape (batch, channel, feature, time)
 
 class ResCNN(nn.Module):
-    def __init__(self, in_c, out_c, kernel, stride, padding, dropout, n_feats):
+    def __init__(self, in_c, out_c, kernel, stride, dropout, n_feats):
         super(ResCNN, self).__init__()
         self.cnn1 = nn.Conv2d(in_c, out_c, kernel, stride, padding=kernel//2)
         self.cnn2 = nn.Conv2d(out_c, out_c, kernel, stride, padding=kernel//2)
