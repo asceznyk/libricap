@@ -17,7 +17,7 @@ bigru = BiGRU(128, 256, 0.5, batch_first=True)
 y = cnn(x)
 y = rescnn(y)
 size = y.size()
-y = y.view(size[0], size[1] * size[2], size[3])
+y = y.view(size[0], size[1] * size[3], size[2])
 y = bigru(y)
 
 print(x, x.size())
