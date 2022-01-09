@@ -15,6 +15,8 @@ x = torch.randn(8, 1, n_feats, 1000)
 speech_model = SpeechRecognizer(3, 5, 29, n_feats, gru_dim, 0.1, 2)
 y = speech_model(x)
 
+print(speech_model)
+
 print(x, x.size())
 print(y, y.size())
 
