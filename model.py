@@ -48,4 +48,31 @@ class BiGRU(nn.Module):
         x, _ = self.bigru(x)
         return self.dropout(x)
 
+class SpeechRecognizer(nn.Module):
+    def __init__(self, n_res_layers, n_gru_layers, n_class, n_feats, gru_dim, dropout, stride=2):
+        super(SpeechRecognizer, self).__init__()
+        n_feats = n_feats//2
+        self.cnn = nn.Conv2d(1, 32, 3, stride=stride, padding=3//2)
+        self.rescnns = nn.Sequential(*[ResCNN(32, 32, kernel=3, stride=1, padding=1) 
+                                      for(_ in range(n_res_layers))])
+        self.fc = nn.Linear(n_feats*32, gru_dim)
+        self.bigrus = nn.Sequential(*[BiGRU(gru_dim, gru_dim if i==0 else gru_dim*2,
+                                           dropout=dropout, batch_first=i==0) 
+                                     for(i in range(n_gru_layers))])
+        self.classifier = nn.Sequential([
+            nn.Linear(gru_dim*2, gru_dim),
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(gru_dim, n_class)
+        ])
+
+    def forward(self, x):
+        x = self.cnn(x) 
+        x = self.rescnns(x) ## (batch, channel, feature, time)
+        xsize = x.size()
+        x = x.view(xsize[0], xsize[1] * xsize[2], xsize[3]) ## (batch, feature, time)
+        x = self.fc(x.transpose(1,2)) ## (batch, time, feature)
+        x = self.bigrus(x) ## (batch, time, 2*feature)
+        return self.classifier(x) ##(batch, time, classes)
+
 
