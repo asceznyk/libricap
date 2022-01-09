@@ -11,9 +11,10 @@ torch.manual_seed(7)
 
 x = torch.randn(8, 1, 128, 1024)
 n_feats = 128 // 2
+gru_dim = 512
 cnn = nn.Conv2d(1, 32, 3, stride=2, padding=3//2)
 rescnn = ResCNN(32, 32, kernel=3, stride=1, dropout=0.5, n_feats=n_feats)
-bigru = BiGRU(n_feats, 256, 0.5, batch_first=True)
+bigru = BiGRU(gru_dim, 256, 0.5, batch_first=True)
 
 y = cnn(x)
 y = rescnn(y)
