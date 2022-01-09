@@ -88,7 +88,7 @@ def data_preprocess(data, data_type="train"):
         spectrograms.append(spec)
         label = torch.Tensor(text_transform.text_to_int(utterance.lower()))
         labels.append(label)
-        input_lengths.append(spec.shape[0]//2)
+        input_lengths.append(spec.shape[0] // 2)
         label_lengths.append(len(label))
 
     spectrograms = nn.utils.rnn.pad_sequence(spectrograms, batch_first=True).unsqueeze(1).transpose(2, 3)
