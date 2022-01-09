@@ -57,7 +57,7 @@ class SpeechRecognizer(nn.Module):
                                               dropout=dropout, n_feats=n_feats) 
                                       for _ in range(n_res_layers)])
         self.fc = nn.Linear(n_feats*32, gru_dim)
-        self.bigrus = nn.Sequential(*[BiGRU(gru_dim, gru_dim if i==0 else gru_dim*2,
+        self.bigrus = nn.Sequential(*[BiGRU(gru_dim if i==0 else gru_dim*2, gru_dim, 
                                             dropout=dropout, batch_first=i==0) 
                                      for i in range(n_gru_layers)])
         self.classifier = nn.Sequential(
