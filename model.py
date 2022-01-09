@@ -60,12 +60,12 @@ class SpeechRecognizer(nn.Module):
         self.bigrus = nn.Sequential(*[BiGRU(gru_dim, gru_dim if i==0 else gru_dim*2,
                                             dropout=dropout, batch_first=i==0) 
                                      for i in range(n_gru_layers)])
-        self.classifier = nn.Sequential([
+        self.classifier = nn.Sequential(
             nn.Linear(gru_dim*2, gru_dim),
             nn.GELU(),
             nn.Dropout(dropout),
             nn.Linear(gru_dim, n_class)
-        ])
+        )
 
     def forward(self, x):
         x = self.cnn(x) 
