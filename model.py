@@ -43,7 +43,7 @@ class BiGRU(nn.Module):
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, x):
-        x = layer_norm(x)
+        x = self.layer_norm(x)
         x = F.gelu(x)
         x, _ = self.bigru(x)
         return self.dropout(x)
