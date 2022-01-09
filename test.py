@@ -18,7 +18,7 @@ y = cnn(x)
 y = rescnn(y)
 size = y.size()
 y = y.view(size[0], size[1] * size[2], size[3])
-y = bigru()
+y = bigru(y)
 
 print(x, x.size())
 print(y, y.size())
