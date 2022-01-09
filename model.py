@@ -53,11 +53,12 @@ class SpeechRecognizer(nn.Module):
         super(SpeechRecognizer, self).__init__()
         n_feats = n_feats//2
         self.cnn = nn.Conv2d(1, 32, 3, stride=stride, padding=3//2)
-        self.rescnns = nn.Sequential(*[ResCNN(32, 32, kernel=3, stride=1, padding=1) 
+        self.rescnns = nn.Sequential(*[ResCNN(32, 32, kernel=3, stride=1, 
+                                              dropout=dropout, n_feats=n_feats) 
                                       for _ in range(n_res_layers)])
         self.fc = nn.Linear(n_feats*32, gru_dim)
         self.bigrus = nn.Sequential(*[BiGRU(gru_dim, gru_dim if i==0 else gru_dim*2,
-                                           dropout=dropout, batch_first=i==0) 
+                                            dropout=dropout, batch_first=i==0) 
                                      for i in range(n_gru_layers)])
         self.classifier = nn.Sequential([
             nn.Linear(gru_dim*2, gru_dim),
