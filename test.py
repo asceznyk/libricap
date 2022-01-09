@@ -9,7 +9,7 @@ from model import *
 
 torch.manual_seed(7)
 
-x = torch.randn(8, 1, 128, 1024)
+x = torch.randn(8, 1, 128, 1000)
 n_feats = 128 // 2
 gru_dim = 512
 cnn = nn.Conv2d(1, 32, 3, stride=2, padding=3//2)
