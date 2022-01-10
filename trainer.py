@@ -76,7 +76,7 @@ class Trainer:
                     optimizer.step()
                     scheduler.step()
 
-                pbar.set_description(f"epoch: {e+1}, iter {i}, {split}, current loss: {loss.item():.3f}, avg loss: {avg_loss}, lr: {args.learning_rate:e}")
+                pbar.set_description(f"epoch: {e+1}, iter {i}, {split}, current loss: {loss.item():.3f}, avg loss: {avg_loss:.2f}, lr: {args.learning_rate:e}")
 
             return avg_loss
 
