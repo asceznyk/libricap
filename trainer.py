@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 
 import torch
@@ -75,7 +77,7 @@ class Trainer:
 
             return avg_loss
 
-        best_loss = self.load_checkpoint()
+        best_loss = self.load_checkpoint() if os.path.exists(args.ckpt_path) else float('inf') 
         self.tokens = 0
 
         for e in range(args.max_epochs):
