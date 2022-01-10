@@ -37,7 +37,7 @@ class Trainer:
 
     def load_checkpoint(self):
         print(f"loading from checkpoint.. ")
-        ckpt = torch.load(args.ckpt_path)
+        ckpt = torch.load(self.args.ckpt_path)
         self.model.load_state_dict(ckpt['model'])
         self.optimizer.load_state_dict(ckpt['optimizer'])
         self.scheduler.load_state_dict(ckpt['scheduler'])
