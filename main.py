@@ -41,6 +41,7 @@ def main(args):
         'gru_dim': 512 
     }
 
+    print(len(train_dataset))
     print(len(train_loader), len(test_loader))
 
     model = SpeechRecognizer(**hparams)
