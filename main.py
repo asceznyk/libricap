@@ -32,7 +32,9 @@ def main(args):
                              collate_fn=lambda x: data_preprocess(x, 'valid'),
                              **kwargs)
 
-    print(next(iter(train_loader)), next(iter(test_loader)))
+    train_samp, test_samp = next(iter(train_loader)), next(iter(test_loader))
+    torch.save(train_samp, 'train_samp.pt')
+    torch.save(test_samp, 'test_samp.pt')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
