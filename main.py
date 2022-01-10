@@ -53,9 +53,9 @@ class Trainer:
         print(f"saving.. {self.args.ckpt_path}!")
         torch.save({
             'best_loss':best_loss,
-            'model':self.model.state_dict()
-            'scheduler':self.scheduler.state_dict()
-            'optimizer':self.optimizer.state_dict()
+            'model':self.model.state_dict(),
+            'scheduler':self.scheduler.state_dict(),
+            'optimizer':self.optimizer.state_dict(),
         }, self.args.ckpt_path)
 
     def load_checkpoint(self):
