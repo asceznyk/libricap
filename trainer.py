@@ -49,7 +49,7 @@ class Trainer:
         return ckpt['best_loss']
 
     def fit(self):
-        model, optimizer, scheduler, args = self.model, self.optimizer, self.scheduler, self.args 
+        model, optimizer, scheduler, criterion, args = self.model, self.optimizer, self.scheduler, self.criterion, self.args 
 
         def run_epoch(split):
             is_train = split == 'train'
