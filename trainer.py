@@ -12,8 +12,7 @@ class Trainer:
         self.test_loader = test_loader
         self.args = args
         
-        self.use_cuda = torch.cuda.is_available()
-        self.device = torch.device('cuda' if self.use_cuda else 'cpu')
+        self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
  
         self.criterion = nn.CTCLoss(blank=28).to(self.device)
         self.optimizer = optim.AdamW(model.parameters(), args.learning_rate)
@@ -24,9 +23,7 @@ class Trainer:
             anneal_strategy='linear'
         )
 
-        if self.use_cuda:
-            self.device = torch.cuda.current_device()
-            self.model = self.model.to(self.device)
+        self.model = self.model.to(self.device)
 
     def save_checkpoint(self, best_loss):
         print(f"saving.. {self.args.ckpt_path}!")

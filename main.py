@@ -19,7 +19,7 @@ def main(args):
     train_dataset = torchaudio.datasets.LIBRISPEECH("/kaggle/working", url="train-clean-100", download=True)
     test_dataset = torchaudio.datasets.LIBRISPEECH("/kaggle/working", url="test-clean", download=True)
 
-    kwargs = {'num_workers': 1, 'pin_memory': True} if use_cuda else {} 
+    kwargs = {'num_workers': 1, 'pin_memory': True} if torch.cuda.is_available() else {} 
     train_loader = DataLoader(
                 dataset=train_dataset, 
                 batch_size=args.batch_size,
@@ -31,9 +31,17 @@ def main(args):
                 batch_size=args.batch_size,
                 shuffle=False,
                 collate_fn=lambda x: data_preprocess(x, 'valid'),
-                **kwargs) 
+                **kwargs)
 
-    model = SpeechRecognizer()
+    hparams = {
+        'n_res_layers': 3,
+        'n_gru_layers': 2,
+        'n_class': 29,
+        'n_feats': 128,
+        'gru_dim': 512 
+    }
+
+    model = SpeechRecognizer(**hparams)
 
     trainer = Trainer(model, train_loader, test_loader, args)
     trainer.fit()
@@ -44,7 +52,7 @@ if __name__ == '__main__':
     parser.add_argument('--learning_rate', type=int, default=5e-4, help='learning rate')
     parser.add_argument('--epochs', type=int, default=10, help='number of epochs to train')
     parser.add_argument('--ckpt_path', default='./state.best',  type=str, help='path of the model to be saved')
-
+       
     options = parser.parse_args()
     main(options)
 
