@@ -80,7 +80,7 @@ class Trainer:
         best_loss = self.load_checkpoint() if os.path.exists(args.ckpt_path) else float('inf') 
         self.tokens = 0
 
-        for e in range(args.max_epochs):
+        for e in range(args.epochs):
             train_loss = run_epoch('train')
             test_loss = run_epoch('valid') if self.test_loader is not None else train_loss
 
