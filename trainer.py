@@ -69,7 +69,7 @@ class Trainer:
                     outputs = model(spectrograms)
                     outputs = F.log_softmax(outputs, dim=2)
 
-                    print(outputs.size())
+                    print(spectrograms.size())
                     print(labels.size())
                     print(input_lengths)
                     print(label_lengths)
