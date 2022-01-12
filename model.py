@@ -51,7 +51,7 @@ class BiGRU(nn.Module):
 class SpeechRecognizer(nn.Module):
     def __init__(self, n_res_layers, n_gru_layers, n_class, n_feats, gru_dim, stride=2, dropout=0.1):
         super(SpeechRecognizer, self).__init__()
-        n_feats = n_feats // stride
+        n_feats = n_feats // 2
         self.cnn = nn.Conv2d(1, 32, 3, stride=stride, padding=3//2)
         self.rescnns = nn.Sequential(*[ResCNN(32, 32, kernel=3, stride=1, 
                                               dropout=dropout, n_feats=n_feats) 
