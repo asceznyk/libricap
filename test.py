@@ -16,7 +16,7 @@ from trainer import Trainer
 def main(args):
     torch.manual_seed(7)
 
-    specs = torch.randn(1, 1, 128, 10)
+    specs = torch.randn(1, 1, 128, 20)
     labels = torch.Tensor([[1, 28, 3, 2, 6, 8, 9, 22, 27, 8, 0]])
     ils = [10]
     lls = [10]

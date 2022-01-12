@@ -69,6 +69,9 @@ class Trainer:
                     outputs = model(spectrograms)
                     outputs = F.log_softmax(outputs, dim=2)
 
+                    print(outputs, outputs.size())
+                    print(labels)
+
                     loss = criterion(outputs.transpose(0, 1), labels, input_lengths, label_lengths)
                     avg_loss += loss.item() / len(loader)
 
