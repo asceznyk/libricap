@@ -36,7 +36,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--batch_size', type=int, default=8, help='batch size')
     parser.add_argument('--learning_rate', type=int, default=5e-4, help='learning rate')
-    parser.add_argument('--epochs', type=int, default=10, help='number of epochs to train')
+    parser.add_argument('--epochs', type=int, default=100, help='number of epochs to train')
     parser.add_argument('--ckpt_path', default='./state.best',  type=str, help='path of the model to be saved')
        
     options = parser.parse_args()
