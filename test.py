@@ -5,7 +5,7 @@ import numpy as np
 import torch
 import torch.optim as optim
 
-from torch.utils.data import Dataset, DataLoader
+from torch.utils.data import TensorDataset, DataLoader
 
 import torchaudio
 
