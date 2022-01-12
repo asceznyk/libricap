@@ -17,7 +17,7 @@ def main(args):
     torch.manual_seed(7)
 
     [specs, labels, ils, lls] = torch.load('/kaggle/input/speechsample/train_samp.pt') 
-    loader = DataLoader(TensorDataset(specs, labels, torch.Tensor(ils), torch.Tensor(lls)), 8)
+    loader = DataLoader(TensorDataset(specs, labels, torch.Tensor(ils).to(torch.int32), torch.Tensor(lls)).to(torch.int32), 8)
 
     hparams = {
         'n_res_layers': 3,
