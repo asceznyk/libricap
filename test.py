@@ -16,8 +16,14 @@ from trainer import Trainer
 def main(args):
     torch.manual_seed(7)
 
-    [specs, labels, ils, lls] = torch.load('/kaggle/input/speechsample/train_samp.pt') 
-    loader = DataLoader(TensorDataset(specs, labels, torch.Tensor(ils).to(torch.int32), torch.Tensor(lls).to(torch.int32)), 8)
+    train_dataset = torch.load('/kaggle/input/speechsample/train_samples.pt') 
+    #loader = DataLoader(TensorDataset(specs, labels, torch.Tensor(ils).to(torch.int32), torch.Tensor(lls).to(torch.int32)), 8)
+
+    loader = DataLoader(
+        dataset=train_dataset, 
+        batch_size=4, 
+        shuffle=True, 
+        collate_fn=lambda x: data_preprocess(x, 'train'))
 
     hparams = {
         'n_res_layers': 3,
