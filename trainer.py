@@ -24,12 +24,12 @@ class Trainer:
  
         self.criterion = nn.CTCLoss(blank=28).to(self.device)
         self.optimizer = optim.AdamW(model.parameters(), args.learning_rate)
-        self.scheduler = optim.lr_scheduler.OneCycleLR(
+        '''self.scheduler = optim.lr_scheduler.OneCycleLR(
             self.optimizer, max_lr=args.learning_rate, 
             steps_per_epoch=int(len(self.train_loader)),
             epochs=args.epochs,
             anneal_strategy='linear'
-        )
+        )'''
 
         self.model = self.model.to(self.device)
 
@@ -38,7 +38,7 @@ class Trainer:
         torch.save({
             'best_loss':best_loss,
             'model':self.model.state_dict(),
-            'scheduler':self.scheduler.state_dict(),
+            #'scheduler':self.scheduler.state_dict(),
             'optimizer':self.optimizer.state_dict(),
         }, self.args.ckpt_path)
 
@@ -47,11 +47,11 @@ class Trainer:
         ckpt = torch.load(self.args.ckpt_path)
         self.model.load_state_dict(ckpt['model'])
         self.optimizer.load_state_dict(ckpt['optimizer'])
-        self.scheduler.load_state_dict(ckpt['scheduler'])
+        #self.scheduler.load_state_dict(ckpt['scheduler'])
         return ckpt['best_loss']
 
     def fit(self):
-        model, optimizer, scheduler, criterion, args = self.model, self.optimizer, self.scheduler, self.criterion, self.args 
+        model, optimizer, criterion, args = self.model, self.optimizer, self.criterion, self.args 
 
         def run_epoch(split):
             is_train = split == 'train'
@@ -79,7 +79,7 @@ class Trainer:
                 if is_train:
                     loss.backward()
                     optimizer.step()
-                    scheduler.step()
+                    #scheduler.step()
 
                 pbar.set_description(f"epoch: {e+1}, iter {i}, {split}, current loss: {loss.item():.3f}, avg loss: {avg_loss:.2f}, lr: {args.learning_rate:e}")
 
