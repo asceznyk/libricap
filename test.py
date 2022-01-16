@@ -17,8 +17,6 @@ def main(args):
     torch.manual_seed(7)
 
     train_dataset = torch.load('/kaggle/input/speechsample/train_samples.pt') 
-    #loader = DataLoader(TensorDataset(specs, labels, torch.Tensor(ils).to(torch.int32), torch.Tensor(lls).to(torch.int32)), 8)
-
     loader = DataLoader(
         dataset=train_dataset, 
         batch_size=4, 
