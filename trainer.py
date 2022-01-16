@@ -11,6 +11,8 @@ import torch.optim as optim
 
 from torch.utils.data import Dataset, DataLoader
 
+from dataset import greedy_decoder
+
 class Trainer:
     def __init__(self, model, train_loader, test_loader, args): 
         self.model = model
