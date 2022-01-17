@@ -52,6 +52,7 @@ class Trainer:
 
     def fit(self):
         model, optimizer, criterion, args = self.model, self.optimizer, self.criterion, self.args 
+        scheduler = self.scheduler
 
         def run_epoch(split):
             is_train = split == 'train'
