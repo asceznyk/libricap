@@ -73,7 +73,7 @@ class Trainer:
 
                     print(greedy_decoder(outputs, labels, label_lengths)) 
 
-                    loss = criterion(outputs.transpose(0, 1), labels.cpu(), input_lengths.cpu(), label_lengths.cpu())
+                    loss = criterion(outputs.transpose(0, 1), labels.cpu(), input_lengths, label_lengths)
                     avg_loss += loss.item() / len(loader)
 
                 if is_train:
