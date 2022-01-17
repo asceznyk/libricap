@@ -92,7 +92,7 @@ def data_preprocess(data, data_type="train"):
         label_lengths.append(len(label))
 
     spectrograms = nn.utils.rnn.pad_sequence(spectrograms, batch_first=True).unsqueeze(1).transpose(2, 3)
-    labels = nn.utils.rnn.pad_sequence(labels, batch_first=True)
+    labels = nn.utils.rnn.pad_sequence(labels, batch_first=True, padding_value=28)
 
     return spectrograms, labels, input_lengths, label_lengths
 
