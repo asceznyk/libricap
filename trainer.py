@@ -22,7 +22,7 @@ class Trainer:
         
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
  
-        self.criterion = nn.CTCLoss(blank=28).to(self.device)
+        self.criterion = nn.CTCLoss(blank=28, zero_infinity=True).to(self.device)
         self.optimizer = optim.AdamW(model.parameters(), args.learning_rate)
         '''self.scheduler = optim.lr_scheduler.OneCycleLR(
             self.optimizer, max_lr=args.learning_rate, 
@@ -73,7 +73,7 @@ class Trainer:
 
                     print(greedy_decoder(outputs, labels, label_lengths)) 
 
-                    loss = criterion(outputs.transpose(0, 1), labels.cpu(), input_lengths, label_lengths)
+                    loss = criterion(outputs.transpose(0, 1), labels, input_lengths, label_lengths)
                     avg_loss += loss.item() / len(loader)
 
                 if is_train:
