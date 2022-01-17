@@ -24,12 +24,12 @@ class Trainer:
  
         self.criterion = nn.CTCLoss(blank=28, zero_infinity=True).to(self.device)
         self.optimizer = optim.AdamW(model.parameters(), args.learning_rate)
-        '''self.scheduler = optim.lr_scheduler.OneCycleLR(
+        self.scheduler = optim.lr_scheduler.OneCycleLR(
             self.optimizer, max_lr=args.learning_rate, 
             steps_per_epoch=int(len(self.train_loader)),
             epochs=args.epochs,
             anneal_strategy='linear'
-        )'''
+        )
 
         self.model = self.model.to(self.device)
 
@@ -38,7 +38,7 @@ class Trainer:
         torch.save({
             'best_loss':best_loss,
             'model':self.model.state_dict(),
-            #'scheduler':self.scheduler.state_dict(),
+            'scheduler':self.scheduler.state_dict(),
             'optimizer':self.optimizer.state_dict(),
         }, self.args.ckpt_path)
 
@@ -47,7 +47,7 @@ class Trainer:
         ckpt = torch.load(self.args.ckpt_path)
         self.model.load_state_dict(ckpt['model'])
         self.optimizer.load_state_dict(ckpt['optimizer'])
-        #self.scheduler.load_state_dict(ckpt['scheduler'])
+        self.scheduler.load_state_dict(ckpt['scheduler'])
         return ckpt['best_loss']
 
     def fit(self):
@@ -71,7 +71,7 @@ class Trainer:
                     outputs = model(spectrograms)
                     outputs = F.log_softmax(outputs, dim=2)
 
-                    print(greedy_decoder(outputs, labels, label_lengths)) 
+                    #print(greedy_decoder(outputs, labels, label_lengths)) 
 
                     loss = criterion(outputs.transpose(0, 1), labels, input_lengths, label_lengths)
                     avg_loss += loss.item() / len(loader)
@@ -79,7 +79,7 @@ class Trainer:
                 if is_train:
                     loss.backward()
                     optimizer.step()
-                    #scheduler.step()
+                    scheduler.step()
 
                 pbar.set_description(f"epoch: {e+1}, iter {i}, {split}, current loss: {loss.item():.3f}, avg loss: {avg_loss:.2f}, lr: {args.learning_rate:e}")
 
