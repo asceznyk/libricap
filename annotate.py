@@ -18,7 +18,7 @@ class SpeechRecognizer:
     def annotate(self, wave_file):
         with torch.no_grad():
             waveform, _  = torchaudio.load(wave_file)
-            outputs, _ = self.model(valid_audio_transforms(waveform).unsqueeze(0)) 
+            outputs = self.model(valid_audio_transforms(waveform).unsqueeze(0)) 
             text, _ = greedy_decoder(torch.nn.functional.softmax(outputs, dim=2))
 
             print(" ".join(text.split()))
