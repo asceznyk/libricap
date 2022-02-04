@@ -1,7 +1,6 @@
 import sys
 import time
 import wave
-import pyaudio
 import argparse
 import numpy as np
 
