@@ -12,7 +12,7 @@ def main(args):
     checkpoint = torch.load(args.model_checkpoint, map_location=torch.device('cpu')) 
     model = SpeechRecognizer(**hparams)
 
-    model_state_dict = checkpoint['state_dict']
+    model_state_dict = checkpoint['model']
     new_state_dict = OrderedDict()
     for k, v in model_state_dict.items():
         name = k.replace("model.", "") # remove `model.`
