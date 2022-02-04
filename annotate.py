@@ -21,7 +21,7 @@ class SpeechRecognizer:
             outputs = self.model(valid_audio_transforms(waveform).unsqueeze(0)) 
             text, _ = greedy_decoder(torch.nn.functional.softmax(outputs, dim=2))
 
-            print(" ".join(text.split()))
+            print(text)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="demoing the speech recognition engine in terminal.")
