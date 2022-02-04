@@ -7,8 +7,10 @@ from model import SpeechRecognizer
 
 def main(args):
     print("loading model from", args.model_checkpoint)
+
+    hparams = SpeechRecognizer.hparams
     checkpoint = torch.load(args.model_checkpoint, map_location=torch.device('cpu')) 
-    model = SpeechRecognizer(**SpeechRecognizer.hyper_params)
+    model = SpeechRecognizer(**hparams)
 
     model_state_dict = checkpoint['state_dict']
     new_state_dict = OrderedDict()
@@ -20,11 +22,15 @@ def main(args):
 
     model.eval() 
 
-    print("Tracing model...") 
-    traced_model = torch.jit.trace(model, torch.rand(1, 1, 81, 300)) 
-    print("Saving to", args.save_path)
+    print("tracing model...") 
+
+    traced_model = torch.jit.trace(model, torch.rand(1, 1, hparams['n_feats'], 300)) 
+    
+    print("taving to", args.save_path)
+    
     traced_model.save(args.save_path)
-    print("Done!")
+    
+    print("done!")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="optimizing model graphs")

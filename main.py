@@ -29,17 +29,9 @@ def main(args):
                 batch_size=args.batch_size,
                 shuffle=False,
                 collate_fn=lambda x: data_preprocess(x, 'valid'),
-                **kwargs)
+                **kwargs) 
 
-    hparams = {
-        'n_res_layers': 3,
-        'n_gru_layers': 2,
-        'n_class': 29,
-        'n_feats': 128,
-        'gru_dim': 512 
-    }
-
-    model = SpeechRecognizer(**hparams)
+    model = SpeechRecognizer(**SpeechRecognizer.hparams)
 
     trainer = Trainer(model, train_loader, test_loader, args)
     trainer.fit()
