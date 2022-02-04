@@ -71,10 +71,7 @@ class Trainer:
                 with torch.set_grad_enabled(is_train):
                     outputs = model(spectrograms)
                     outputs = F.log_softmax(outputs, dim=2)
-
-                    #print(greedy_decoder(outputs, labels, label_lengths)) 
-
-                    loss = criterion(outputs.transpose(0, 1), labels, input_lengths, label_lengths)
+                    loss = criterion(outputs.transpose(0,1), labels, input_lengths, label_lengths)
                     avg_loss += loss.item() / len(loader)
 
                 if is_train:
