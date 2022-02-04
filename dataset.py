@@ -96,14 +96,13 @@ def data_preprocess(data, data_type="train"):
 
     return spectrograms, labels, input_lengths, label_lengths
 
-def greedy_decoder(output, labels, label_lengths, blank_label=28, collapse_repeated=True):
+def greedy_decoder(output, labels=None, label_lengths=None, blank_label=28, collapse_repeated=True):
     arg_maxes = torch.argmax(output, dim=2)
     decodes = []
     targets = []
     for i, args in enumerate(arg_maxes):
         decode = []
-        targets.append(text_transform.int_to_text(labels[i][:label_lengths[i]].tolist()))
-        print(args)
+        if labels not None: targets.append(text_transform.int_to_text(labels[i][:label_lengths[i]].tolist())) 
         for j, index in enumerate(args):
             if index != blank_label:
                 if collapse_repeated and j != 0 and index == args[j-1]:
@@ -111,4 +110,6 @@ def greedy_decoder(output, labels, label_lengths, blank_label=28, collapse_repea
                 decode.append(index.item())
         decodes.append(text_transform.int_to_text(decode))
     return decodes, targets
+
+
 
