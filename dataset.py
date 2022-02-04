@@ -102,7 +102,7 @@ def greedy_decoder(output, labels=None, label_lengths=None, blank_label=28, coll
     targets = []
     for i, args in enumerate(arg_maxes):
         decode = []
-        if labels not None: targets.append(text_transform.int_to_text(labels[i][:label_lengths[i]].tolist())) 
+        if labels is not None: targets.append(text_transform.int_to_text(labels[i][:label_lengths[i]].tolist())) 
         for j, index in enumerate(args):
             if index != blank_label:
                 if collapse_repeated and j != 0 and index == args[j-1]:
