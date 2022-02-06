@@ -72,7 +72,7 @@ class Trainer:
                     avg_loss += loss.item() / len(loader)
 
                 per = (i / len(loader)) * 100 
-                description = f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, \n lr: {args.learning_rate:e}, progress(%): {per}%"
+                description = f"epoch: {e+1}, progress(%): {per}%, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, lr: {args.learning_rate:e}"
                 if is_train:
                     loss.backward()
                     optimizer.step()
