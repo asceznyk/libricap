@@ -21,7 +21,7 @@ class Trainer:
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
  
         self.criterion = nn.CTCLoss(blank=28, zero_infinity=True).to(self.device)
-        self.optimizer = optim.AdamW(model.parameters(), args.learning_rate)
+        self.optimizer = optim.Adam(model.parameters(), args.learning_rate)
         self.scheduler = optim.lr_scheduler.OneCycleLR(
             self.optimizer, max_lr=args.learning_rate, 
             steps_per_epoch=int(len(self.train_loader)),
