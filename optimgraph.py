@@ -3,12 +3,12 @@ from collections import OrderedDict
 
 import torch
 
+from hparams import *
 from model import SpeechRecognizer
 
 def main(args):
     print("loading model from", args.model_checkpoint)
 
-    hparams = SpeechRecognizer.hparams
     checkpoint = torch.load(args.model_checkpoint, map_location=torch.device('cpu')) 
     model = SpeechRecognizer(**hparams)
 
