@@ -70,7 +70,7 @@ train_audio_transforms = nn.Sequential(
     torchaudio.transforms.TimeMasking(time_mask_param=100)
 )
 
-valid_audio_transforms = torchaudio.transforms.MelSpectrogram()
+valid_audio_transforms = torchaudio.transforms.MelSpectrogramn(n_mels=hparams['n_feats'])
 
 text_transform = TextTransform()
 
