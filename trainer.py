@@ -16,7 +16,7 @@ class Trainer:
         self.train_loader = train_loader
         self.test_loader = test_loader
         self.args = args
-        self.log_outs = True
+        self.log_outputs = False
         
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
  
@@ -71,7 +71,7 @@ class Trainer:
                     outputs = F.log_softmax(outputs, dim=2)
                     loss = criterion(outputs.transpose(0,1), labels, input_lengths, label_lengths)
 
-                    if self.log_outs:
+                    if self.log_outputs:
                         texts, labels = greedy_decoder(outputs, labels, label_lengths)
                         print(texts)
                         print(labels)
