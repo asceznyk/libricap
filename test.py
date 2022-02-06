@@ -22,7 +22,7 @@ def main(args):
         shuffle=True, 
         collate_fn=lambda x: data_preprocess(x, 'train'))
 
-    console.log(next(iter(loader)))
+    console.log(next(iter(loader))[0].size)
 
     model = SpeechRecognizer(**hparams)
 
