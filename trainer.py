@@ -16,6 +16,7 @@ class Trainer:
         self.train_loader = train_loader
         self.test_loader = test_loader
         self.args = args
+        self.log_outs = True
         
         self.device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
  
@@ -69,6 +70,12 @@ class Trainer:
                     outputs = model(spectrograms)
                     outputs = F.log_softmax(outputs, dim=2)
                     loss = criterion(outputs.transpose(0,1), labels, input_lengths, label_lengths)
+
+                    if self.log_outs:
+                        texts, labels = greedy_decoder(outputs, labels, label_lengths)
+                        print(texts)
+                        print(labels)
+
                     avg_loss += loss.item() / len(loader)
 
                 description = f"epoch: {e+1}, progress(%): {int(((i+1)/len(loader))*100)}%, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, lr: {args.learning_rate:.5f}"
