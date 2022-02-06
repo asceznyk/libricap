@@ -77,7 +77,7 @@ class Trainer:
                     optimizer.step()
                     scheduler.step()
 
-                    pbar.set_description("backwarding.." + description)
+                    pbar.set_description("backwarding.. " + description)
                 else:
                     pbar.set_description(description)
 
