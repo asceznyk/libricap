@@ -70,8 +70,9 @@ class Trainer:
                     outputs = F.log_softmax(outputs, dim=2)
                     loss = criterion(outputs.transpose(0,1), labels, input_lengths, label_lengths)
                     avg_loss += loss.item() / len(loader)
-                
-                description = f"epoch: {e+1}, iter {i}, {split}, current loss: {loss.item():.3f}, avg loss: {avg_loss:.2f}, lr: {args.learning_rate:e}"
+
+                per = (i / len(loader)) * 100 
+                description = f"epoch: {e+1}, loss: {loss.item():.3f}, avg: {avg_loss:.2f}, \n lr: {args.learning_rate:e}, progress(%): {per}%"
                 if is_train:
                     loss.backward()
                     optimizer.step()
