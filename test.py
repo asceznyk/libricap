@@ -22,8 +22,6 @@ def main(args):
         shuffle=True, 
         collate_fn=lambda x: data_preprocess(x, 'train'))
 
-    print(next(iter(loader))[0].size())
-
     model = SpeechRecognizer(**hparams)
 
     trainer = Trainer(model, loader, None, args)
