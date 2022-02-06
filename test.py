@@ -22,6 +22,8 @@ def main(args):
         shuffle=True, 
         collate_fn=lambda x: data_preprocess(x, 'train'))
 
+    console.log(train_dataset[0].shape)
+
     model = SpeechRecognizer(**hparams)
 
     trainer = Trainer(model, loader, None, args)
