@@ -7,6 +7,7 @@ from torch.utils.data import TensorDataset, DataLoader
 
 import torchaudio
 
+from hparams import *
 from dataset import *
 from model import *
 from trainer import Trainer
@@ -20,14 +21,6 @@ def main(args):
         batch_size=4, 
         shuffle=True, 
         collate_fn=lambda x: data_preprocess(x, 'train'))
-
-    hparams = {
-        'n_res_layers': 3,
-        'n_gru_layers': 5,
-        'n_class': 29,
-        'n_feats': 128,
-        'gru_dim': 512 
-    }
 
     model = SpeechRecognizer(**hparams)
 

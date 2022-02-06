@@ -5,6 +5,8 @@ import torch.nn as nn
 
 import torchaudio
 
+from hparams import *
+
 class TextTransform:
     def __init__(self):
         char_map_str = """
@@ -63,7 +65,7 @@ class TextTransform:
 
 
 train_audio_transforms = nn.Sequential(
-    torchaudio.transforms.MelSpectrogram(sample_rate=16000, n_mels=128),
+    torchaudio.transforms.MelSpectrogram(sample_rate=16000, n_mels=hparams['n_mels']),
     torchaudio.transforms.FrequencyMasking(freq_mask_param=30),
     torchaudio.transforms.TimeMasking(time_mask_param=100)
 )

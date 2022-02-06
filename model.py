@@ -48,15 +48,7 @@ class BiGRU(nn.Module):
         x, _ = self.bigru(x)
         return self.dropout(x)
 
-class SpeechRecognizer(nn.Module):
-    hparams = {
-        'n_res_layers': 3,
-        'n_gru_layers': 2,
-        'n_class': 29,
-        'n_feats': 128,
-        'gru_dim': 512 
-    }
-
+class SpeechRecognizer(nn.Module): 
     def __init__(self, n_res_layers, n_gru_layers, n_class, n_feats, gru_dim, stride=2, dropout=0.1):
         super(SpeechRecognizer, self).__init__()
         n_feats = n_feats // 2

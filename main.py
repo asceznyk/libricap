@@ -7,6 +7,7 @@ from torch.utils.data import Dataset, DataLoader
 
 import torchaudio
 
+from hparams import *
 from dataset import *
 from model import *
 from trainer import Trainer
@@ -31,7 +32,7 @@ def main(args):
                 collate_fn=lambda x: data_preprocess(x, 'valid'),
                 **kwargs) 
 
-    model = SpeechRecognizer(**SpeechRecognizer.hparams)
+    model = SpeechRecognizer(**hparams)
 
     trainer = Trainer(model, train_loader, test_loader, args)
     trainer.fit()
