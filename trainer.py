@@ -97,8 +97,8 @@ class Trainer:
             train_loss = run_epoch('train')
             test_loss = run_epoch('valid') if self.test_loader is not None else train_loss
 
-        good_model = self.test_loader is None or test_loss < best_loss
-        if self.args.ckpt_path is not None and good_model:
-            best_loss = test_loss
-            self.save_checkpoint(best_loss)
+            good_model = self.test_loader is None or test_loss < best_loss
+            if self.args.ckpt_path is not None and good_model:
+                best_loss = test_loss
+                self.save_checkpoint(best_loss)
 

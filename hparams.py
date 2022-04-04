@@ -3,6 +3,6 @@ hparams = {
     'n_gru_layers': 2,
     'n_class': 29,
     'n_feats': 80,
-    'gru_dim': 768 
+    'gru_dim': 512 
 }
 
