@@ -19,14 +19,17 @@ def main(args):
         new_state_dict[name] = v
 
     model.load_state_dict(new_state_dict)
+    model.eval()
 
-    model.eval() 
+    n_params = sum(p.numel() for p in model.parameters())
+
+    print(f"{n_params} parameters")
 
     print("tracing model...") 
 
     traced_model = torch.jit.trace(model, torch.rand(1, 1, hparams['n_feats'], 300)) 
     
-    print("taving to", args.save_path)
+    print("saving to", args.save_path)
     
     traced_model.save(args.save_path)
     
